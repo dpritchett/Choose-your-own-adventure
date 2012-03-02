@@ -1,4 +1,5 @@
 from textwrap import dedent
+from lexicon import verb_list, noun_list, actions
 
 class Game(object):
     def __init__(self):
@@ -38,6 +39,14 @@ What will you do?
         output = self.flash_text
         self.flash_text = ''
         return output
+
+    def parse_input(self):
+        words = self.move.split()
+
+        verbs = [word for word in actions if word in words]
+
+        for verb in verbs:
+            return  [actions[verb][noun] for noun in actions[verb] if noun in words]
 
     def evaluate_move(self):
         flavor = { 'hack': 'HACK THE PLANET!!!!!',
